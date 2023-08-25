@@ -44,6 +44,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* runAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* interactionAction;
 #pragma endregion
 
 
@@ -66,4 +69,6 @@ protected:
 	void TurnYaw(const FInputActionValue& value);
 
 	void Run(const FInputActionValue& value);
+
+	void Interaction(const FInputActionValue& value);
 };

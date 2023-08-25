@@ -61,6 +61,8 @@ void AFUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		enhancedInputComponent->BindAction(turnYawAction, ETriggerEvent::Triggered, this, &AFUCharacter::TurnYaw);
 
 		enhancedInputComponent->BindAction(runAction, ETriggerEvent::Triggered, this, &AFUCharacter::Run);
+
+		enhancedInputComponent->BindAction(interactionAction, ETriggerEvent::Triggered, this, &AFUCharacter::Interaction);
 	}
 }
 
@@ -120,6 +122,20 @@ void AFUCharacter::Run(const FInputActionValue& value)
 	}
 	else {
 		movement->MaxWalkSpeed = 400;
+	}
+}
+
+void AFUCharacter::Interaction(const FInputActionValue& value)
+{
+	FVector startPos = cameraComp->GetComponentLocation();
+	FVector endPos = startPos + cameraComp->GetForwardVector() * 500;
+	FHitResult hitInfo;
+	FCollisionQueryParams params;
+	params.AddIgnoredActor(this);
+	bool bHit = GetWorld()->LineTraceSingleByChannel(hitInfo, startPos, endPos, ECC_Visibility, params);
+	if (bHit) {
+		// 뭔가 상호작용이 있으면 하기
+		UE_LOG(LogTemp, Log, TEXT("Hit"));
 	}
 }
 
