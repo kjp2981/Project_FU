@@ -21,6 +21,7 @@ AFUCharacter::AFUCharacter()
 	cameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CamComp"));
 	if (cameraComp) {
 		cameraComp->SetupAttachment(springArmComp);
+		cameraComp->SetRelativeLocation(FVector(0));
 	}
 }
 
