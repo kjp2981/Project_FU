@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Engine/StaticMeshActor.h"
+#include "IInteractable.h"
 #include "FireplaceLogHolder.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class AFireplaceLogHolder : public AStaticMeshActor
+class AFireplaceLogHolder : public AStaticMeshActor, public IIInteractable
 {
 	GENERATED_BODY()
 
@@ -22,4 +23,6 @@ protected:
 
 public:
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void Interaction() override;
 };

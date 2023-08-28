@@ -7,6 +7,7 @@
 #include "C:/Program Files/Epic Games/UE_5.1/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputComponent.h"
 #include "C:/Program Files/Epic Games/UE_5.1/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputSubsystems.h"
 #include <GameFramework/CharacterMovementComponent.h>
+#include "IInteractable.h"
 
 // Sets default values
 AFUCharacter::AFUCharacter()
@@ -136,7 +137,10 @@ void AFUCharacter::Interaction(const FInputActionValue& value)
 	bool bHit = GetWorld()->LineTraceSingleByChannel(hitInfo, startPos, endPos, ECC_Visibility, params);
 	if (bHit) {
 		// 뭔가 상호작용이 있으면 하기
-		UE_LOG(LogTemp, Log, TEXT("Hit"));
+		if (hitInfo.GetActor()->GetClass()->ImplementsInterface(UIInteractable::StaticClass())) {
+			auto interactable = Cast<IIInteractable>(hitInfo.GetActor());
+			interactable->Interaction();
+		}
 	}
 }
 

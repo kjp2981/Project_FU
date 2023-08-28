@@ -19,3 +19,7 @@ void AFireplaceLogHolder::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+void AFireplaceLogHolder::Interaction()
+{
+}

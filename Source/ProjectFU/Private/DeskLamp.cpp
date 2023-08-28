@@ -25,3 +25,7 @@ void ADeskLamp::Tick(float DeltaTime)
 
 }
 
+void ADeskLamp::Interaction()
+{
+}
+

@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "IInteractable.h"
 #include "DeskLamp.generated.h"
 
 UCLASS()
-class ADeskLamp : public AActor
+class ADeskLamp : public AActor, public IIInteractable
 {
 	GENERATED_BODY()
 	
@@ -22,4 +23,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	virtual void Interaction() override;
 };
