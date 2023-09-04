@@ -8,6 +8,7 @@
 #include "C:/Program Files/Epic Games/UE_5.1/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputSubsystems.h"
 #include <GameFramework/CharacterMovementComponent.h>
 #include "IInteractable.h"
+#include "UUIManager.h"
 
 // Sets default values
 AFUCharacter::AFUCharacter()
@@ -33,6 +34,7 @@ void AFUCharacter::BeginPlay()
 	
 	springArmComp->bUsePawnControlRotation = true;
 	GetCharacterMovement()->MaxWalkSpeed = 400;
+	params.AddIgnoredActor(this);
 }
 
 // Called every frame
@@ -40,6 +42,9 @@ void AFUCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FVector startPos = cameraComp->GetComponentLocation();
+	FVector endPos = startPos + cameraComp->GetForwardVector() * 500;
+	bHit = GetWorld()->LineTraceSingleByChannel(hitInfo, startPos, endPos, ECC_Visibility, params);
 }
 
 // Called to bind functionality to input
@@ -129,12 +134,6 @@ void AFUCharacter::Run(const FInputActionValue& value)
 
 void AFUCharacter::Interaction(const FInputActionValue& value)
 {
-	FVector startPos = cameraComp->GetComponentLocation();
-	FVector endPos = startPos + cameraComp->GetForwardVector() * 500;
-	FHitResult hitInfo;
-	FCollisionQueryParams params;
-	params.AddIgnoredActor(this);
-	bool bHit = GetWorld()->LineTraceSingleByChannel(hitInfo, startPos, endPos, ECC_Visibility, params);
 	if (bHit) {
 		// 뭔가 상호작용이 있으면 하기
 		if (hitInfo.GetActor()->GetClass()->ImplementsInterface(UIInteractable::StaticClass())) {

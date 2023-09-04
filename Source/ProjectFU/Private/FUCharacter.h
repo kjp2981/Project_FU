@@ -49,6 +49,9 @@ protected:
 	class UInputAction* interactionAction;
 #pragma endregion
 
+	FHitResult hitInfo;
+	FCollisionQueryParams params;
+	bool bHit;
 
 protected:
 	// Called when the game starts or when spawned
