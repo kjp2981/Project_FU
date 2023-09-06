@@ -8,7 +8,6 @@
 #include "C:/Program Files/Epic Games/UE_5.1/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputSubsystems.h"
 #include <GameFramework/CharacterMovementComponent.h>
 #include "IInteractable.h"
-#include "UUIManager.h"
 
 // Sets default values
 AFUCharacter::AFUCharacter()
