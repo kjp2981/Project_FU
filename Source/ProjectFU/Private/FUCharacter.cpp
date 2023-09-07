@@ -8,6 +8,7 @@
 #include "C:/Program Files/Epic Games/UE_5.1/Engine/Plugins/EnhancedInput/Source/EnhancedInput/Public/EnhancedInputSubsystems.h"
 #include <GameFramework/CharacterMovementComponent.h>
 #include "IInteractable.h"
+#include "Managers.h"
 
 // Sets default values
 AFUCharacter::AFUCharacter()
@@ -34,6 +35,9 @@ void AFUCharacter::BeginPlay()
 	springArmComp->bUsePawnControlRotation = true;
 	GetCharacterMovement()->MaxWalkSpeed = 400;
 	params.AddIgnoredActor(this);
+
+	auto manager = Cast<UManagers>(GetGameInstance());
+	manager->AddMainUI();
 }
 
 // Called every frame
