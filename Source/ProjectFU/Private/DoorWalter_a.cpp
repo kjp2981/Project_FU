@@ -5,7 +5,7 @@
 
 ADoorWalter_a::ADoorWalter_a()
 {
-
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 void ADoorWalter_a::BeginPlay()

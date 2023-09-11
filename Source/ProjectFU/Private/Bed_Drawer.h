@@ -3,29 +3,24 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/StaticMeshActor.h"
-#include "IInteractable.h"
-#include "DoorWalter_a.generated.h"
+#include "GameFramework/Actor.h"
+#include "Bed_Drawer.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class ADoorWalter_a : public AStaticMeshActor, public IIInteractable
+class ABed_Drawer : public AActor
 {
 	GENERATED_BODY()
-
-public:
+	
+public:	
 	// Sets default values for this actor's properties
-	ADoorWalter_a();
+	ABed_Drawer();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:
+public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void Interaction() override;
 };
