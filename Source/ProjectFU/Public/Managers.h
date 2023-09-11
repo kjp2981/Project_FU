@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
-#include "MainUI.h"
 #include "Managers.generated.h"
 
 /**
@@ -17,8 +16,8 @@ class PROJECTFU_API UManagers : public UGameInstance
 
 public:
 	UPROPERTY(EditDefaultsOnly, Category = UI)
-	TSubclassOf<class UMainUI> mainUIClass;
-	class UMainUI* mainUIWidget;
+	TSubclassOf<class UUserWidget> mainUIClass;
+	class UUserWidget* mainUIWidget;
 public:
 
 	virtual void Init() override;

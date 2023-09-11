@@ -2,15 +2,15 @@
 
 
 #include "Managers.h"
+#include <Blueprint/UserWidget.h>
 
 void UManagers::Init()
 {
 	Super::Init();
 
-	static ConstructorHelpers::FClassFinder<UMainUI> mainUI(TEXT("/Script/UMGEditor.WidgetBlueprint'/Game/FUContent/Widget/BP_MainUI.BP_MainUI_C'"));
-	if (mainUI.Succeeded()) {
-		mainUIClass = mainUI.Class;
-	}
+	mainUIWidget = CreateWidget<UUserWidget>(GetWorld(), mainUIClass);
+
+	AddMainUI();
 }
 
 void UManagers::Shutdown()
@@ -20,8 +20,6 @@ void UManagers::Shutdown()
 
 void UManagers::AddMainUI()
 {
-	mainUIWidget = CreateWidget<UMainUI>(GetWorld(), mainUIClass);
-
 	if (IsValid(mainUIWidget)) {
 		mainUIWidget->AddToViewport();
 	}
