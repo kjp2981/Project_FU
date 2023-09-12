@@ -19,9 +19,9 @@ public:
 public:
 	bool bOpened = false;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Mesh, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Mesh, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UStaticMeshComponent> leftDoorMesh;
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category=Mesh, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Mesh, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<class UStaticMeshComponent> rightDoorMesh;
 
 protected:
