@@ -24,10 +24,10 @@ public:
 	class UCameraComponent* cameraComp;
 
 	UPROPERTY(VisibleAnywhere, Category = Movement)
-	bool isRun = false;
+	bool bRun = false;
 
 	UPROPERTY(VisibleAnywhere, Category = Movement)
-	bool isCrouch = false;
+	bool bCrouch = false;
 protected:
 #pragma region Input
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))

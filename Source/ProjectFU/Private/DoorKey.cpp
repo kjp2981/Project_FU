@@ -3,6 +3,8 @@
 
 #include "DoorKey.h"
 #include <Components/StaticMeshComponent.h>
+#include "Managers.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ADoorKey::ADoorKey()
@@ -38,4 +40,9 @@ void ADoorKey::Interaction()
 {
 	// GameInstance에게 데이터 보내기 열쇠 먹었다고
 	UE_LOG(LogTemp, Log, TEXT("Get Key"));
+	auto gameInstance = Cast<UManagers>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (gameInstance != nullptr) {
+		gameInstance->GetKey();
+		Destroy();
+	}
 }

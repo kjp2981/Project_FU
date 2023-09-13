@@ -25,3 +25,15 @@ void ABed_Drawer::Tick(float DeltaTime)
 
 }
 
+void ABed_Drawer::Interaction()
+{
+	bOpen = !bOpen;
+
+	if (bOpen) {
+		openablePart->AddRelativeLocation(FVector(0, 35, 0));
+	}
+	else {
+		openablePart->AddRelativeLocation(FVector(0, -35, 0));
+	}
+}
+

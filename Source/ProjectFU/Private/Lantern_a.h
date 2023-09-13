@@ -3,29 +3,31 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Engine/StaticMeshActor.h"
 #include "IInteractable.h"
-#include "Bed_Drawer.generated.h"
+#include <Components/PointLightComponent.h>
+#include "Lantern_a.generated.h"
 
+/**
+ * 
+ */
 UCLASS()
-class ABed_Drawer : public AActor, public IIInteractable
+class ALantern_a : public AStaticMeshActor, public IIInteractable
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
-	ABed_Drawer();
+public:
+	ALantern_a();
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Mesh)
-	TObjectPtr<class UStaticMeshComponent> openablePart;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Light)
+	TObjectPtr<class UPointLightComponent> lanternLight;
 
-	bool bOpen = false;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

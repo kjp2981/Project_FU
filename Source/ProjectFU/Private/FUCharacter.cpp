@@ -46,7 +46,7 @@ void AFUCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	FVector startPos = cameraComp->GetComponentLocation();
-	FVector endPos = startPos + cameraComp->GetForwardVector() * 500;
+	FVector endPos = startPos + cameraComp->GetForwardVector() * 200;
 	bHit = GetWorld()->LineTraceSingleByChannel(hitInfo, startPos, endPos, ECC_Visibility, params);
 }
 
@@ -126,10 +126,10 @@ void AFUCharacter::Run(const FInputActionValue& value)
 {
 	bool run = value.Get<bool>();
 
-	isRun = run;
+	bRun = run;
 
 	auto movement = GetCharacterMovement();
-	if (isRun) {
+	if (bRun) {
 		movement->MaxWalkSpeed = 600;
 	}
 	else {
@@ -150,9 +150,9 @@ void AFUCharacter::Interaction(const FInputActionValue& value)
 
 void AFUCharacter::Crouch(const FInputActionValue& value)
 {
-	isCrouch = !isCrouch;
+	bCrouch = !bCrouch;
 
-	if (isCrouch) {
+	if (bCrouch) {
 		// 카메라 내리기
 		cameraComp->SetRelativeLocation(FVector(0, 0, -70));
 	}
