@@ -25,6 +25,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = Movement)
 	bool isRun = false;
+
+	UPROPERTY(VisibleAnywhere, Category = Movement)
+	bool isCrouch = false;
 protected:
 #pragma region Input
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -47,6 +50,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* interactionAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* crouchAction;
 #pragma endregion
 
 	FHitResult hitInfo;
@@ -74,4 +80,6 @@ protected:
 	void Run(const FInputActionValue& value);
 
 	void Interaction(const FInputActionValue& value);
+
+	void Crouch(const FInputActionValue& value);
 };

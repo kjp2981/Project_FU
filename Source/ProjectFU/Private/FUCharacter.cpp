@@ -73,6 +73,8 @@ void AFUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		enhancedInputComponent->BindAction(runAction, ETriggerEvent::Triggered, this, &AFUCharacter::Run);
 
 		enhancedInputComponent->BindAction(interactionAction, ETriggerEvent::Triggered, this, &AFUCharacter::Interaction);
+
+		enhancedInputComponent->BindAction(crouchAction, ETriggerEvent::Triggered, this, &AFUCharacter::Crouch);
 	}
 }
 
@@ -143,6 +145,20 @@ void AFUCharacter::Interaction(const FInputActionValue& value)
 			auto interactable = Cast<IIInteractable>(hitInfo.GetActor());
 			interactable->Interaction();
 		}
+	}
+}
+
+void AFUCharacter::Crouch(const FInputActionValue& value)
+{
+	isCrouch = !isCrouch;
+
+	if (isCrouch) {
+		// 카메라 내리기
+		cameraComp->SetRelativeLocation(FVector(0, 0, -70));
+	}
+	else {
+		// 카메라 올리기
+		cameraComp->SetRelativeLocation(FVector(0));
 	}
 }
 
