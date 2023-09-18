@@ -21,7 +21,7 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Light)
-	TObjectPtr<class UPointLightComponent> lanternLight;
+	TObjectPtr<UPointLightComponent> lanternLight;
 
 protected:
 	// Called when the game starts or when spawned
@@ -32,4 +32,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void Interaction() override;
+
+	TObjectPtr<UPointLightComponent> GetLanternLight() {
+		return lanternLight;
+	}
 };

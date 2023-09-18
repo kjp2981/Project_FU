@@ -6,6 +6,13 @@
 ALantern_a::ALantern_a()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	lanternLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("LanternLight"));
+	if (lanternLight != nullptr) {
+		lanternLight->SetupAttachment(RootComponent);
+		lanternLight->Intensity = 3000;
+		lanternLight->AttenuationRadius = 300;
+	}
 }
 
 void ALantern_a::BeginPlay()

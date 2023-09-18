@@ -31,4 +31,6 @@ public:
 	void AddMainUI();
 
 	void GetKey();
+
+	bool HaveKey();
 };

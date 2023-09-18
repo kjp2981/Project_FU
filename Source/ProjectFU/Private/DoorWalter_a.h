@@ -19,6 +19,12 @@ public:
 	// Sets default values for this actor's properties
 	ADoorWalter_a();
 
+public:
+	bool bOpenable = false;
+	bool bOpen = false;
+
+	UPROPERTY(EditAnywhere, Category = Door)
+	TObjectPtr<UStaticMeshComponent> doorBarricadeMesh;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

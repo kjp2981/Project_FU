@@ -31,3 +31,8 @@ void UManagers::GetKey()
 	// 후속 처리
 	// ex) UI 아니면 인벤토리같은거
 }
+
+bool UManagers::HaveKey()
+{
+	return bHaveKey;
+}
