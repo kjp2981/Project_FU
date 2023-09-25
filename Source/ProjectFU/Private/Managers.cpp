@@ -3,6 +3,8 @@
 
 #include "Managers.h"
 #include <Blueprint/UserWidget.h>
+#include <Blueprint/WidgetTree.h>
+#include <Widgets/Text/STextBlock.h>
 
 void UManagers::Init()
 {
@@ -25,14 +27,7 @@ void UManagers::AddMainUI()
 	}
 }
 
-void UManagers::GetKey()
+void UManagers::AddKey()
 {
-	bHaveKey = true;
-	// 후속 처리
-	// ex) UI 아니면 인벤토리같은거
-}
-
-bool UManagers::HaveKey()
-{
-	return bHaveKey;
+	keyArray.Add(1);
 }

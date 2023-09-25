@@ -26,12 +26,18 @@ public:
 	// Sets default values for this actor's properties
 	ALanternManager();
 
+private:
+	bool bComplete = false;
+
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Lantern)
 	TArray<TObjectPtr<class ALantern_a>> lanternArray;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Lantern)
 	TArray<FIdPair> idPairStruct;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Key)
+	TSubclassOf<class ADoorKey> keyFactory;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -45,4 +51,10 @@ public:
 	void SetLanternAutoVisible(int id);
 
 	void SetOtherLanternAutoVisible(int id);
+
+	bool GetAllLanternLightVisible(bool isVisible);
+
+	bool GetComplete() {
+		return bComplete;
+	}
 };

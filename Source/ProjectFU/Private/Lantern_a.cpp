@@ -3,6 +3,8 @@
 
 #include "Lantern_a.h"
 #include "LanternManager.h"
+#include <Particles/ParticleSystemComponent.h>
+#include <Kismet/GameplayStatics.h>
 
 ALantern_a::ALantern_a()
 {
@@ -11,21 +13,34 @@ ALantern_a::ALantern_a()
 	lanternLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("LanternLight"));
 	if (lanternLight != nullptr) {
 		lanternLight->SetupAttachment(RootComponent);
-		lanternLight->Intensity = 3000;
+		lanternLight->SetRelativeLocation(FVector(0, 0, 17));
+		lanternLight->Intensity = 1000;
 		lanternLight->AttenuationRadius = 300;
+	}
+
+	candleFireComp = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("CandleFire"));
+
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> CandleFire(TEXT("/Script/Engine.ParticleSystem'/Game/M5VFXVOL2/Particles/Reference/Candlefire/0_CandleFire_pt.0_CandleFire_pt'"));
+	if (CandleFire.Succeeded()) {
+		candleFire = CandleFire.Object;
+		if (candleFireComp) {
+			candleFireComp->SetupAttachment(lanternLight);
+			candleFireComp->SetRelativeLocation(FVector(0, 0, -3.5));
+			candleFireComp->SetTemplate(candleFire);
+		}
 	}
 }
 
 void ALantern_a::BeginPlay()
 {
+	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), candleFire, FTransform());
+
 	TObjectPtr<AActor> Parent = GetAttachParentActor();
 	if (Parent != nullptr) {
 		lanternManager = Cast<ALanternManager>(Parent);
 	}
 
-	if (lanternLight) {
-		lanternLight->SetVisibility(false);
-	}
+	SetVisible(false);
 }
 
 void ALantern_a::Tick(float DeltaTime)
@@ -37,18 +52,26 @@ void ALantern_a::Interaction()
 	// 자신의 랜턴을 칸다음 자신의 id를 lanternmanager에 넘겨
 	// lanternmanager는 id를 받은 다음 해당 id의 맞는 다른 id의 랜턴을 켜
 
-	if (lanternLight != nullptr) {
-		if (lanternLight->IsVisible()) {
-			lanternLight->SetVisibility(false);
-			
-		}
-		else {
-			lanternLight->SetVisibility(true);
+	if (lanternManager != nullptr) {
+		if (lanternManager->GetComplete() == false) {
+			SetVisible(!lanternLight->IsVisible());
 		}
 	}
-
+	else {
+		SetVisible(!lanternLight->IsVisible());
+	}
 	if (lanternManager != nullptr) {
 		lanternManager->SetOtherLanternAutoVisible(GetID());
+	}
+}
+
+void ALantern_a::SetVisible(bool value)
+{
+	if (lanternLight != nullptr) {
+		lanternLight->SetVisibility(value);
+	}
+	if (candleFireComp) {
+		candleFireComp->SetVisibility(value);
 	}
 }
 

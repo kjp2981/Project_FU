@@ -28,6 +28,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = Movement)
 	bool bCrouch = false;
+
 protected:
 #pragma region Input
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -57,6 +58,7 @@ protected:
 
 	FHitResult hitInfo;
 	FCollisionQueryParams params;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Interac, meta = (AllowPrivateAccess = "true"))
 	bool bHit;
 
 protected:

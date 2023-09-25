@@ -29,6 +29,12 @@ private:
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Lantern)
 	TObjectPtr<UPointLightComponent> lanternLight;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Lantern)
+	TObjectPtr<class UParticleSystem> candleFire;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Lantern)
+	TObjectPtr<class UParticleSystemComponent> candleFireComp;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -42,6 +48,8 @@ public:
 	TObjectPtr<UPointLightComponent> GetLanternLight() {
 		return lanternLight;
 	}
+
+	void SetVisible(bool value);
 
 	void SetID(int id);
 

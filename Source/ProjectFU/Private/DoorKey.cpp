@@ -38,11 +38,9 @@ void ADoorKey::Tick(float DeltaTime)
 
 void ADoorKey::Interaction()
 {
-	// GameInstance에게 데이터 보내기 열쇠 먹었다고
-	UE_LOG(LogTemp, Log, TEXT("Get Key"));
 	auto gameInstance = Cast<UManagers>(UGameplayStatics::GetGameInstance(GetWorld()));
 	if (gameInstance != nullptr) {
-		gameInstance->GetKey();
+		gameInstance->AddKey();
 		Destroy();
 	}
 }

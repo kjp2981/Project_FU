@@ -15,14 +15,17 @@ class PROJECTFU_API UManagers : public UGameInstance
 	GENERATED_BODY()
 
 public:
+#pragma region UI
 	UPROPERTY(EditDefaultsOnly, Category = UI)
 	TSubclassOf<class UUserWidget> mainUIClass;
 	class UUserWidget* mainUIWidget;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
+	TObjectPtr<class UTextBlock> eText;
+#pragma endregion
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Key, meta = (AllowPrivateAccess = "true"))
-	bool bHaveKey = false;
+	TArray<bool> keyArray;
 public:
 
 	virtual void Init() override;
@@ -30,7 +33,9 @@ public:
 
 	void AddMainUI();
 
-	void GetKey();
+	int GetKeyNum() {
+		return keyArray.Num();
+	}
 
-	bool HaveKey();
+	void AddKey();
 };

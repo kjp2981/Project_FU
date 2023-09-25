@@ -38,7 +38,7 @@ void ADoorWalter_a::Interaction()
 	if (bOpenable == false) {
 		auto gameInstance = Cast<UManagers>(UGameplayStatics::GetGameInstance(GetWorld()));
 		if (gameInstance != nullptr) {
-			if (gameInstance->HaveKey()) {
+			if (gameInstance->GetKeyNum() > 0) {
 				bOpenable = true;
 				doorBarricadeMesh->SetVisibility(!bOpenable);
 			}

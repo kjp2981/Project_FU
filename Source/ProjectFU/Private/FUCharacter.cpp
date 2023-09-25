@@ -9,6 +9,7 @@
 #include <GameFramework/CharacterMovementComponent.h>
 #include "IInteractable.h"
 #include "Managers.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 AFUCharacter::AFUCharacter()
