@@ -3,39 +3,46 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/SceneComponent.h"
-#include "Lantern_a.h"
+#include "GameFramework/Actor.h"
 #include "LanternManager.generated.h"
 
+USTRUCT(Atomic, BlueprintType)
+struct FIdPair {
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BLueprintReadWrite)
+	int ownerId;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class ULanternManager : public USceneComponent
+	UPROPERTY(EditAnywhere, BLueprintReadWrite)
+	TArray<int> otherIdArray;
+};
+
+UCLASS()
+class ALanternManager : public AActor
 {
-	 GENERATED_BODY()
-
+	GENERATED_BODY()
+	
 public:	
-	// Sets default values for this component's properties
-	ULanternManager();
+	// Sets default values for this actor's properties
+	ALanternManager();
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Lantern)
-	TSubclassOf<class ALantern_a> lanternFactory;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Lantern)
+	TArray<TObjectPtr<class ALantern_a>> lanternArray;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Lantern)
-	TArray<TObjectPtr<USceneComponent>> lanternPosArray;
-
-	UPROPERTY(VisibleAnywhere, Category = Lantern)
-	TArray<TObjectPtr<ALantern_a>> lightArray;
-
-	UPROPERTY(EditAnywhere, Category = Lantern)
-	int iLanternCount = 5;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Lantern)
+	TArray<FIdPair> idPairStruct;
 protected:
-	// Called when the game starts
+	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void Tick(float DeltaTime) override;
 
-	void SetVisiblaLight(int index, bool value);
+	void SetLanternVisible(int id, bool value);
+
+	void SetLanternAutoVisible(int id);
+
+	void SetOtherLanternAutoVisible(int id);
 };

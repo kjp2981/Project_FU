@@ -3,57 +3,81 @@
 
 #include "LanternManager.h"
 #include "Lantern_a.h"
-#include <Components/StaticMeshComponent.h>
-#include <Components/SceneComponent.h>
-#include "Engine/StaticMeshActor.h"
-#include "Components/PointLightComponent.h"
 
 
-// Sets default values for this component's properties
-ULanternManager::ULanternManager()
+// Sets default values
+ALanternManager::ALanternManager()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-	 
-	// ...
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 }
 
-
-// Called when the game starts
-void ULanternManager::BeginPlay()
+// Called when the game starts or when spawned
+void ALanternManager::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	TArray<TObjectPtr<USceneComponent>> ChildArray;
+	ChildArray = RootComponent->GetAttachChildren();
 
-	// ...
-	if (lightArray.Num() == 0) {
-		for (int i = 0; i < iLanternCount; i++) {
-			//ALantern_a* lantern = CreateDefaultSubobject<ALantern_a>(TEXT("Lantern" + i));
-			ALantern_a* lantern = GetWorld()->SpawnActor<ALantern_a>(lanternFactory, FTransform());
+	if (ChildArray.Num() != 0) {
+		for (int i = 0; i < ChildArray.Num(); i++) {
+			TObjectPtr<ALantern_a> lantern = Cast<ALantern_a>(ChildArray[i]->GetOwner());
 			if (lantern != nullptr) {
-				lantern->AttachToComponent(this, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
-				lantern->SetActorRelativeLocation(lanternPosArray[i]->GetRelativeLocation());
-				lightArray.Add(lantern);
+				lantern->SetID(i);
+				lanternArray.Add(lantern);
 			}
 		}
 	}
 }
 
-
 // Called every frame
-void ULanternManager::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void ALanternManager::Tick(float DeltaTime)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	Super::Tick(DeltaTime);
 
-	// ...
 }
 
-void ULanternManager::SetVisiblaLight(int index, bool value)
+void ALanternManager::SetLanternVisible(int id, bool value)
 {
-	if (lightArray.IsValidIndex(index)) {
-		if (lightArray[index] != nullptr) {
-			lightArray[index]->GetLanternLight()->SetVisibility(value);
+	if (id < lanternArray.Num()) {
+		for (int i = 0; i < lanternArray.Num(); i++) {
+			if (lanternArray[i]->GetID() == id) {
+				lanternArray[i]->GetLanternLight()->SetVisibility(value);
+				break;
+			}
 		}
 	}
 }
 
+void ALanternManager::SetLanternAutoVisible(int id)
+{
+	if (id < lanternArray.Num()) {
+		for (int i = 0; i < lanternArray.Num(); i++) {
+			if (lanternArray[i]->GetID() == id) {
+				lanternArray[i]->GetLanternLight()->SetVisibility(!lanternArray[i]->GetLanternLight()->IsVisible());
+				break;
+			}
+		}
+	}
+}
+
+void ALanternManager::SetOtherLanternAutoVisible(int id)
+{
+	TArray<int> OtherIdArray;
+	for (auto pair : idPairStruct) {
+		if (pair.ownerId == id) {
+			OtherIdArray = pair.otherIdArray;
+			break;
+		}
+	}
+
+	for (int i = 0; i < OtherIdArray.Num(); i++) {
+		for (int j = 0; j < lanternArray.Num(); j++) {
+			if (lanternArray[j]->GetID() == OtherIdArray[i]) {
+				lanternArray[j]->GetLanternLight()->SetVisibility(!lanternArray[j]->GetLanternLight()->IsVisible());
+			}
+		}
+	}
+}
+  

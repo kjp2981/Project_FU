@@ -11,6 +11,7 @@
 /**
  * 
  */
+
 UCLASS()
 class ALantern_a : public AStaticMeshActor, public IIInteractable
 {
@@ -19,10 +20,15 @@ class ALantern_a : public AStaticMeshActor, public IIInteractable
 public:
 	ALantern_a();
 
-public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Light)
-	TObjectPtr<UPointLightComponent> lanternLight;
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Lantern, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class ALanternManager> lanternManager;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Lantern, meta = (AllowPrivateAccess = "true"))
+	int iId;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Lantern)
+	TObjectPtr<UPointLightComponent> lanternLight;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -35,5 +41,11 @@ public:
 
 	TObjectPtr<UPointLightComponent> GetLanternLight() {
 		return lanternLight;
+	}
+
+	void SetID(int id);
+
+	int GetID() {
+		return this->iId;
 	}
 };
