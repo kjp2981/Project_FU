@@ -60,6 +60,8 @@ protected:
 	FCollisionQueryParams params;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Interac, meta = (AllowPrivateAccess = "true"))
 	bool bHit;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Interac, meta = (AllowPrivateAccess = "true"))
+	bool bHitInteractionObject;
 
 protected:
 	// Called when the game starts or when spawned

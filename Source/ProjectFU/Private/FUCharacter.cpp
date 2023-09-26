@@ -49,6 +49,12 @@ void AFUCharacter::Tick(float DeltaTime)
 	FVector startPos = cameraComp->GetComponentLocation();
 	FVector endPos = startPos + cameraComp->GetForwardVector() * 200;
 	bHit = GetWorld()->LineTraceSingleByChannel(hitInfo, startPos, endPos, ECC_Visibility, params);
+	if (bHit) {
+		bHitInteractionObject = hitInfo.GetActor()->GetClass()->ImplementsInterface(UIInteractable::StaticClass());
+	}
+	else {
+		bHitInteractionObject = false;
+	}
 }
 
 // Called to bind functionality to input
@@ -142,7 +148,7 @@ void AFUCharacter::Interaction(const FInputActionValue& value)
 {
 	if (bHit) {
 		// 뭔가 상호작용이 있으면 하기
-		if (hitInfo.GetActor()->GetClass()->ImplementsInterface(UIInteractable::StaticClass())) {
+		if (bHitInteractionObject) {
 			auto interactable = Cast<IIInteractable>(hitInfo.GetActor());
 			interactable->Interaction();
 		}
