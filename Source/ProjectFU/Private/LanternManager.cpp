@@ -91,7 +91,7 @@ void ALanternManager::SetOtherLanternAutoVisible(int id)
 
 	if (GetAllLanternLightVisible(true)) {
 		FTransform pos = this->GetActorTransform();
-		pos.AddToTranslation(FVector(0, 140, 0));
+		//pos.AddToTranslation(FVector(0, 0, 140));
 		GetWorld()->SpawnActor<ADoorKey>(keyFactory, pos);
 		bComplete = true;
 	}

@@ -61,7 +61,7 @@ void AFUCharacter::Tick(float DeltaTime)
 void AFUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	 
 	APlayerController* playerController = Cast<APlayerController>(Controller);
 	if (playerController) {
 		UEnhancedInputLocalPlayerSubsystem* subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(playerController->GetLocalPlayer());
