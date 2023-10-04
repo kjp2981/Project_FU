@@ -11,6 +11,7 @@ void UManagers::Init()
 	Super::Init();
 
 	mainUIWidget = CreateWidget<UUserWidget>(GetWorld(), mainUIClass);
+	clearUIWidget = CreateWidget<UUserWidget>(GetWorld(), clearUIClass);
 
 	AddMainUI();
 }
@@ -25,6 +26,13 @@ void UManagers::AddMainUI()
 	if (IsValid(mainUIWidget)) {
 		mainUIWidget->AddToViewport();
 	}
+}
+
+void UManagers::AddClearUI()
+{
+	if (IsValid(clearUIWidget)) {
+		clearUIWidget->AddToViewport();
+;	}
 }
 
 void UManagers::AddKey()

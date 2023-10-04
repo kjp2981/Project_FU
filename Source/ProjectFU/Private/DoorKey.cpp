@@ -18,7 +18,7 @@ ADoorKey::ADoorKey()
 	ConstructorHelpers::FObjectFinder<UStaticMesh> TempKeyMesh(TEXT("/Script/Engine.StaticMesh'/Game/FUContent/Mesh/Horror_Starter_Pack/Key_Key.Key_Key'"));
 	if (TempKeyMesh.Succeeded()) {
 		keyMesh->SetStaticMesh(TempKeyMesh.Object);
-		keyMesh->SetRelativeScale3D(FVector(2));
+		keyMesh->SetRelativeScale3D(FVector(3));
 	}
 }
 

@@ -18,6 +18,13 @@ class AFireplaceLogHolder : public AStaticMeshActor, public IIInteractable
 public:
 	AFireplaceLogHolder();
 	
+public:
+	UPROPERTY(VisibleAnywhere, Category = Fire)
+	TObjectPtr<class UParticleSystem> fireParticle;
+
+	UPROPERTY(VisibleAnywhere, Category = Fire)
+	TObjectPtr<class UParticleSystemComponent> fireParticleComp;
+
 protected:
 	virtual void BeginPlay() override;
 

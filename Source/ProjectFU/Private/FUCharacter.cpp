@@ -148,7 +148,9 @@ void AFUCharacter::Interaction(const FInputActionValue& value)
 {
 	if (bHit) {
 		// 뭔가 상호작용이 있으면 하기
+		UE_LOG(LogTemp, Log, TEXT("Hit"));
 		if (bHitInteractionObject) {
+			UE_LOG(LogTemp, Log, TEXT("Interaction"));
 			auto interactable = Cast<IIInteractable>(hitInfo.GetActor());
 			interactable->Interaction();
 		}

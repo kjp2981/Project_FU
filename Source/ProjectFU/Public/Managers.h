@@ -16,9 +16,15 @@ class PROJECTFU_API UManagers : public UGameInstance
 
 public:
 #pragma region UI
-	UPROPERTY(EditDefaultsOnly, Category = UI)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = UI)
 	TSubclassOf<class UUserWidget> mainUIClass;
+	UPROPERTY(BlueprintReadOnly, Category = UI)
 	class UUserWidget* mainUIWidget;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = UI)
+	TSubclassOf<class UUserWidget> clearUIClass;
+	UPROPERTY(BlueprintReadOnly, Category = UI)
+	class UUserWidget* clearUIWidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI)
 	TObjectPtr<class UTextBlock> eText;
@@ -32,6 +38,8 @@ public:
 	virtual void Shutdown() override;
 
 	void AddMainUI();
+
+	void AddClearUI();
 
 	int GetKeyNum() {
 		return keyArray.Num();

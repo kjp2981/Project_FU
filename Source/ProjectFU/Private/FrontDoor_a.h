@@ -23,7 +23,10 @@ private:
 	bool bOpen = false;
 
 	UPROPERTY(EditAnywhere, Category = Door, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UStaticMeshComponent> doorBarricadeMesh;
+	TObjectPtr<class UStaticMeshComponent> doorBarricadeMesh;
+
+	UPROPERTY(VisibleAnywhere, Category = Door, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<class UBoxComponent> boxComp;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -35,4 +38,11 @@ public:
 	virtual void Interaction() override;
 
 	void OpenDoor(bool value);
+
+	UFUNCTION()
+	void OnBoxComponentOverlapBegin(class AActor* OverlappedActor, class UPrimitiveComponent* OverlappedComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = Effect)
+	void OnScreenEffect();
 };
