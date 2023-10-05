@@ -46,4 +46,7 @@ public:
 	}
 
 	void AddKey();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void CreateMonster();
 };

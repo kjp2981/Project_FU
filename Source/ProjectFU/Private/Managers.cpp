@@ -38,4 +38,8 @@ void UManagers::AddClearUI()
 void UManagers::AddKey()
 {
 	keyArray.Add(1);
+
+	if (keyArray.Num() == 2) {
+		CreateMonster();
+	}
 }
