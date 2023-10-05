@@ -23,6 +23,9 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	class UCameraComponent* cameraComp;
 
+	UPROPERTY(VisibleAnywhere, Category = Light)
+	TObjectPtr<class USpotLightComponent> flashlightComp;
+
 	UPROPERTY(VisibleAnywhere, Category = Movement)
 	bool bRun = false;
 
@@ -54,6 +57,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* crouchAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* flashLightAction;
 #pragma endregion
 
 	FHitResult hitInfo;
@@ -86,4 +92,6 @@ protected:
 	void Interaction(const FInputActionValue& value);
 
 	void Crouch(const FInputActionValue& value);
+
+	void FlashLight(const FInputActionValue& value);
 };

@@ -10,6 +10,7 @@
 #include "IInteractable.h"
 #include "Managers.h"
 #include <Kismet/GameplayStatics.h>
+#include <Components/SpotLightComponent.h>
 
 // Sets default values
 AFUCharacter::AFUCharacter()
@@ -25,6 +26,13 @@ AFUCharacter::AFUCharacter()
 	if (cameraComp) {
 		cameraComp->SetupAttachment(springArmComp);
 		cameraComp->SetRelativeLocation(FVector(0));
+	}
+	flashlightComp = CreateDefaultSubobject<USpotLightComponent>(TEXT("FlashLightComp"));
+	if (flashlightComp) {
+		flashlightComp->SetupAttachment(cameraComp);
+		flashlightComp->Intensity = 10000;
+		flashlightComp->AttenuationRadius = 700;
+		flashlightComp->OuterConeAngle = 20;
 	}
 }
 
@@ -82,6 +90,8 @@ void AFUCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		enhancedInputComponent->BindAction(interactionAction, ETriggerEvent::Triggered, this, &AFUCharacter::Interaction);
 
 		enhancedInputComponent->BindAction(crouchAction, ETriggerEvent::Triggered, this, &AFUCharacter::Crouch);
+
+		enhancedInputComponent->BindAction(flashLightAction, ETriggerEvent::Triggered, this, &AFUCharacter::FlashLight);
 	}
 }
 
@@ -169,5 +179,10 @@ void AFUCharacter::Crouch(const FInputActionValue& value)
 		// 카메라 올리기
 		cameraComp->SetRelativeLocation(FVector(0));
 	}
+}
+
+void AFUCharacter::FlashLight(const FInputActionValue& value)
+{
+	flashlightComp->SetVisibility(!flashlightComp->IsVisible());
 }
 
